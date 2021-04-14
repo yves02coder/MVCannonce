@@ -19,14 +19,22 @@ require_once "../Controller/showInscriptionVendeur.php";
 
             <!-- Login Form -->
             <form>
-               <p>email</p><input type="text" id="email_vendeur" class="fadeIn second " size="10" name="email_vendeur" placeholder="Email" required>
-                <p>password</p><input type="password" id="password_vendeur" class="fadeIn third" name="password_vendeur" placeholder="password"required>
+                <input type="text" id="nom_utilisateur" class="fadeIn second " size="10" name="nom_utilisateur" placeholder="Nom" required>
+               <p>email</p><input type="text" id="email_utilisateur" class="fadeIn second " size="10" name="email_utilisateur" placeholder="Email" required>
+                <p>password</p><input type="password" id="password_utilisateur" class="fadeIn third" name="password_utilisateur" placeholder="password"required>
                <!-- <p>password_repeat"</p><input type="password" id="password_vendeur" class="fadeIn third" name="password_vendeur" placeholder="Repeatpassword">-->
                 <!--<div class="text-center">
                     <button name="connexion" type="submit" class="btn btn-success m-4 ">connecter</button>
                 </div>-->
                 <p></p>
-                <button type="submit" name="confirmer" class="fadeIn fourth" value="connecter">inscription</button>
+                <form method="post">
+                    <button type="submit" name="confirmer" class="fadeIn fourth" value="connecter">inscription</button>
+                    <?php
+                    if(isset($_POST['confirmer'])){
+                        envoiemail_inscription();
+                    }
+                    ?>
+                </form>
             </form>
 
             <!-- Remind Passowrd -->

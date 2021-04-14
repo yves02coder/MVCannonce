@@ -52,6 +52,8 @@ if (isset($_SESSION['connecter_vendeur']) && $_SESSION['connecter_vendeur'] === 
                 <option value="Deco-Maison">Deco-Maison</option>
                 <option value="Electromenager">Electromenager</option>
                 <option value="Vetement">Vetement</option>
+                <option value="immobilier">immobilier</option>
+                <option value="voiture">Voiture</option>
             </select>
         </td>
 

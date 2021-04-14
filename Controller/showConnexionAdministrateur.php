@@ -5,7 +5,7 @@ function connecterAdministrateur()
 {
     $administrateur = new Administration_modele();
     $administrateur ->connexionAdministration();
-    if ( $_SESSION['connecter_administrateur']=true){
+    if ( $_SESSION['connecter_administrateur']===true){
 
         require_once "../View/espaceAdministration.php";
     }

@@ -1,113 +1,101 @@
 <?php
-require_once "../asset/template.php";
-require_once "../Controller/showProduit.php";
-require_once "../Controller/showDelete.php";
-$getproduit = getAllproduit();
-$title="accueil";
+ob_start();
+require_once "../Controller/RegionsControlleur.php";
+require_once "../Controller/showClientProduit.php";
+
 ?>
-    <a href="add" class="btn btn btn-outline-info">ajouter des produits</a>
+    <!--CARTE DE FRANCE ET RECHERCHE PAR REGION -->
+    <div class="container-fluid text-center mt-3">
+        <h2 class="text-center text-danger">Votre région :</h2>
+        <link rel="stylesheet" href="View/carte/cmap/style.css">
+        <script src="View/carte/cmap/jquery-1.11.1.min.js"></script>
+        <script src="View/carte/cmap/France-map.js"></script>
+        <script>
+            francefree();
+        </script>
+    </div>
+
+
+
+
+<?php
+$getproduit = getAllproduitClient();
+$title="clientProduit";
+?>
+
     <div class="container text-center">
+
         <div class="row">
 
             <?php
             foreach ($getproduit
 
-            as $row) {
-            ?>
-           <!--<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+                     as $row) {
+                ?>
+
+                <div class="col-lg-4 d-flex align-items-stretch">
+                    <div class="card mt-md-5" >
+
+                        <img  src="~/<?= $row['image_produit'] ?>" class="img-fluid" alt="...">
+
+                        <h5 class="card-title"><b class="text-warning"><?= $row['nom_produit'] ?></b></h5>
+                        <p class=""><?= $row['description_produit'] ?>.</p>
+                        <p class="card-text"><small class="text-muted"> <b class="text-danger"><?= $row['prix_produit'] ?>
+                                    €</b></small></p>
+                        <p class="card-text"><?= $row['categorie_produit'] ?></p>
+                        <p class="card-text"><i class="fa fa-globe  fa-2x fa-spin" aria-hidden="true"></i><b><?= $row['nom_region'] ?></b></p>
+
+                        <div class="w3-display-middle w3-display-hover w3-xlarge">
 
 
-           <div class="w3-display-container w3-hover-opacity text-center" style="width:100%">-->
-            <div class="col-lg-4 d-flex align-items-stretch">
-                <div class="card mt-md-5" >
+                            <button type="button" data-toggle="modal" class="btn btn-primary"  data-target="#supprimer_produit&id=<?=$row['id_produit'] ?>">
+                                Voir le produit
+                            </button>
+                            <a name="email_vendeur" type="submit" href="email_vendeur&id=<?= $row['id_produit'] ?>"
+                               class="btn btn-outline-success m-2 w3-button w3-black ">Message</a>
 
-                    <img  src="~/<?= $row['image_produit'] ?>" class="img-fluid" alt="...">
+                            <div class="modal fade" role="dialog"  id="supprimer_produit&id=<?=$row['id_produit']  ?>"  tabindex="-1" aria-labelledby="supprimer_produit?id=<?=$row['id_produit'] ?>" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="staticBackdropLabel"><?=$row['nom_produit'] ?></h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="w3-text-dark-gray"><b>l'article est vendu par:<?= $row['nom_vendeur'] ?></b></p>
+                                            <!--                                            <p class="text-danger"><b><i class="fa fa-envelope-o" aria-hidden="true"></i>:<?/*= $row['email_utilisateur'] */?></b></p>-->                                            <h1><?=$row['nom_produit'] ?></h1>
+                                            <p>numero produit:<?=$row['id_produit'] ?></p>
+                                            <img class="card-img-top img-fluid" src="~/<?=$row['image_produit']?> ?>"
+                                                 alt="" title="">
+                                            <?/*=$row['image_produit']*/?><!--</p>-->
+                                           <!-- <p><?/*=$row['description_produit'] */?></p>-->
+                                            <p><?=$row['prix_produit'] ?></p>
+                                            <p><?=$row['categorie_produit'] ?></p>
+                                            <p><?=$row['id_produit_region'] ?></p>
 
-                    <h5 class="card-title"><b class="text-warning"><?= $row['nom_produit'] ?></b></h5>
-                    <p class=""><?= $row['description_produit'] ?>.</p>
-                    <p class="card-text"><small class="text-muted"> <b class="text-danger"><?= $row['prix_produit'] ?>
-                                €</b></small></p>
-                    <p class="card-text"><?= $row['categorie_produit'] ?></p>
-                    <p class="card-text"><i class="fa fa-globe  fa-5x fa-spin" aria-hidden="true"></i>: <?= $row['nom_region'] ?></p>
-                    <h3 class="card-title"><b class="text-warning"><?= $row['nom_vendeur'] ?></b></h3>
-                    <div class="w3-display-middle w3-display-hover w3-xlarge">
-
-                        <?php
-                        /*
-                   if (isset($_SESSION['connecter_vendeur']) && $_SESSION['connecter_Vendeur'] === true){
-                      */?>
-                            <a href="modifier?id=<?= $row['id_produit'] ?>"
-                           class="btn btn-outline-success m-2 w3-button w3-black">update</a>
-                           <!-- --><?php
-/*                       }
-                        */?>
-
-
-                       <!-- <a href="categorie" name="categorie" class="btn btn-outline-info">categories</a>-->
-                        <!--<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                            modifier produit
-                        </button>-->
-                        <!--<a type="button" class="btn btn-primary" data-bs-toggle="modal" href="supprimer?id_supprimer=<?/*= $row['id_produit'] */?>">
-                            supprimer produit
-                        </a>-->
-                        <button type="button" data-toggle="modal" class="btn btn-primary"  data-target="#supprimer_produit&id=<?=$row['id_produit'] ?>">
-                            supprimer produit
-                        </button>
-
-
-
-                        <div class="modal fade" role="dialog"  id="supprimer_produit&id=<?=$row['id_produit']  ?>"  tabindex="-1" aria-labelledby="supprimer_produit?id=<?=$row['id_produit'] ?>" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="staticBackdropLabel"><?=$row['nom_produit'] ?></h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <h1><?=$row['nom_produit'] ?></h1>
-                                        <h3 class="card-title">Nom du vendeur:<b class="text-success"><?= $row['nom_vendeur'] ?></b></h3>
-                                        <p>numero produit:<?=$row['id_produit'] ?></p>
-                                        <img class="card-img-top img-fluid" src="~/<?=$row['image_produit']?> ?>"
-                                             alt="" title="">
-
-                                        <p><?=$row['description_produit'] ?></p>
-                                        <p><?=$row['prix_produit'] ?></p>
-                                        <p><?=$row['categorie_produit'] ?></p>
-                                        <p><?=$row['nom_region'] ?></p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <a name="supp" type="submit" href="supprimer&id=<?= $row['id_produit'] ?>"
-                                           class="btn btn-outline-success m-2 w3-button w3-black">supprimer</a>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <a name="acheter" type="submit" href="acheter&id=<?= $row['id_produit'] ?>"
+                                               class="btn btn-outline-success m-2 w3-button w3-black ">Payer</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-        <?php
+                <?php
             }
-        ?>
+            ?>
+        </div>
     </div>
-    </div>
-
-<!----------------------------------------------MODAL SUPPRIMER----------------------------------------------->
-<?php
-
-?>
- <!--------------------------------MODAL------------------------------------------------------>
-    <!-- Button trigger modal -->
-    <!--<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-      supprimer produit
-    </button>-->
-
-    <!-- Modal -->
 
 
+    <script src="https://code.jquery.com/jquery-3.2.1.js</script>
 <?php
 
 require_once "footer.php";

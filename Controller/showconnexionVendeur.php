@@ -6,7 +6,8 @@ function getConnexion(){
 
     $connexion= new ModelVendeur();
      $connexion->getConnexionVendeur();
-if ( $_SESSION['connecter_utilisateur']=true){
+if ($_SESSION['connecter_vendeur']=true){
+//getConnexion();
     require_once "../View/categorie.php";
 }
 

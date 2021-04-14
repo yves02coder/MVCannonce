@@ -1,9 +1,10 @@
 
 <?php
-/*require_once "../Model/database.php";
-require_once "../View/connexionVendeur.php";*/
-session_start();
-//session_unset();
+$_SESSION = array();
+session_unset();
 session_destroy();
-header("Refresh:30;deconnexion");
+
+header("Refresh:5000;accueil");
 require_once "../View/deconnexion.php";
+?>
+

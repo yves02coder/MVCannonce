@@ -8,7 +8,7 @@ function getConnexionUtilisateur(){
     $connexion->getConnexionUtilisateur();
     if ( $_SESSION['connecter_utilisateur']=true){
 
-        require_once "../View/acheter.php";
+        require_once "../View/produitClient.php";
     }
 
 

@@ -5,7 +5,7 @@ require_once "../Controller/showDetail.php";
 $categories =getProduitByCategorie();
 
 ?>
-
+<link rel="stylesheet" href="../View/categorie.css">
 <div class="container">
     <div class="row">
         <div class="col-8 overflow mt-2 mb-2" >
@@ -30,7 +30,7 @@ $categories =getProduitByCategorie();
 
                         </div>
                         <a href="modifier?id=<?= $value['id_produit'] ?>"
-                           class="btn btn-outline-success m-2 w3-button w3-black">update</a>
+                           class="btn btn-success m-2 w3-button w3-black">update</a>
                     </div>
 
                 </div>
@@ -48,7 +48,7 @@ $categories =getProduitByCategorie();
                 </tr>
                 </thead>
                 <h3 class="my-4 text-danger"></h3>
-                <a href="add" class="center-text  list-group-item disabled shadow-2dp button"> <?= $value["nom_vendeur"] ?> Insert</a>
+                <a href="add" class="text-secondary btn btn-outline-warning"> <?= $value["nom_vendeur"] ?> Insert</a>
 
             <?php foreach ($categories as $key => $value) : ?>
                 <tbody>
@@ -61,7 +61,7 @@ $categories =getProduitByCategorie();
 
 
                 <td class=" mr-3"> <button type="button" data-toggle="modal" class="button btn btn-danger"  data-target="#supprimer_produit&id=<?=$value['id_produit'] ?>">
-                      <b class="text-danger">  supprimer</b>
+                      <b >  supprimer</b>
                     <!-- --><?/*= $value["nom_vendeur"] */?> </button></td>
 
             </tr>
@@ -111,28 +111,6 @@ $categories =getProduitByCategorie();
 
 
 <style>
-.button {
-display: inline-block;
-padding: 10px 20px;
-font-size: 24px;
-cursor: pointer;
-text-align: center;
-text-decoration: none;
-outline: none;
-color: #568c74;
-background-color: #b2beb6;
-border: none;
-border-radius: 15px;
-box-shadow: 0 9px #999999;
-}
 
-.button:hover {background-color: #71aba4
-}
-
-.button:active {
-background-color: #3e8e41;
-box-shadow: 0 5px #666;
-transform: translateY(4px);
-}
 </style>
 

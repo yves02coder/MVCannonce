@@ -29,9 +29,9 @@ class Envoi_Mail extends Database
             $mail->CharSet = 'UTF-8';
 
             //Envoyeur et destinataire
-            $mail->setFrom('LeRenouveau.com', ' Administration');
+            $mail->setFrom('LeRenouveau.com', ' AdministrationModel');
             $mail->addAddress('LeRenouveau.com', 'Administrateur Renouveau.com');
-            $mail->addReplyTo('LeRenouveau.com', ' Administration');
+            $mail->addReplyTo('LeRenouveau.com', ' AdministrationModel');
             //Connexion et requete PDO get by ID
             $user = "root";
             $pass = "";

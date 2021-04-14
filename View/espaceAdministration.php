@@ -1,10 +1,11 @@
 <?php
 //session_start();
 require_once "../asset/template.php";
-require_once "../Controller/showAllAdminfunction.php";
-require_once "../Controller/showAdminViewController.php";
+require_once "../Controller/showEspaceAdmin.php";
 require_once "../Controller/showAllVendeur.php";
 require_once "../Controller/showProduitByvendeur.php";
+require_once "../Controller/showCategorie.php";
+//require_once "../Controller/showDelete.php";
 
 
 $tableAdmin = afficherTableAdmin();
@@ -14,7 +15,7 @@ if (isset($_SESSION['connecter_admin']) && $_SESSION['connecter_admin'] === true
 
 ?>
         <div class="container " style="margin-left: 80%" >
-            <a href="inscriptionAdministrateur" style="background-image: url('../asset/image/poto.png')" ><b>ajouter un admin</b></a>
+            <a href="index.php" class="btn btn-outline-info" ><b>ajouter un admin</b></a>
 
         </div>
 <h1 class="text-success text-center">ESPACE ADMINISTRATION</h1>
@@ -59,7 +60,7 @@ if (isset($_SESSION['connecter_admin']) && $_SESSION['connecter_admin'] === true
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                                <a href="supprimer_admin&id_suppr=<?= $admin['id_admin'] ?>" type="button"
+                                <a href="supprimer_admin&id=<?= $admin['id_admin'] ?>" type="button"
                                    class="btn btn-primary"> suppression</a>
                             </div>
                         </div>
@@ -75,7 +76,41 @@ if (isset($_SESSION['connecter_admin']) && $_SESSION['connecter_admin'] === true
     </div>
     <p></p>
 
-    <!-----------------------------------vendeur---------------------------------------------->
+<h1 class="text-danger text-center m-5">LISTE DES CATEGORIES ARTICLES ET COLLABORATEURS</h1>
+    <table class="table">
+    <thead>
+    <tr>
+        <th scope="col" class="text-secondary">COLLABORATEUR</th>
+        <th scope="col" class="text-secondary">CATEGORIES</th>
+       <th scope="col" class="text-success">ARTICLES</th>
+
+    </tr>
+    </thead>
+    <h3 class="my-4 text-danger"></h3>
+
+        <?php
+
+        $categories =getProduitCategorie();
+        ?>
+    <?php foreach ($categories as $key => $value) : ?>
+    <tbody>
+    <tr>
+
+
+      <td> <?= $value["nom_vendeur"] ?></td>
+        <td> <b class="text-secondary"><?= $value["categorie_produit"] ?> </b></td>
+        <td><img  src="~/<?= $value['image_produit'] ?>" class="img-fluid" alt="..." style="    width: 20%;">
+            <b class="text-success"><?= $value["nom_produit"] ?> </b>
+        </td>
+
+<td class=" mr-3"> <button type="button" data-toggle="modal" class="button btn btn-danger"  data-target="#supprimer_produit&id=<?=$value['id_produit'] ?>">
+                <b >  supprimer</b>
+                <?= $value["nom_vendeur"] ?> </button></td>
+
+    </tr>
+<?php endforeach ?>
+    </tbody>
+    </table>
     <table class="table-hover table-dark">
        <!-- <thead>
         <tr>
@@ -90,7 +125,7 @@ if (isset($_SESSION['connecter_admin']) && $_SESSION['connecter_admin'] === true
         <tbody>
         <?php
         $getvendeur=getAllVendeur();
-        foreach ($getvendeur as $admin) {
+        foreach ( $getvendeur as $admin) {
             ?>
             <tr>
                 <td><?= $admin['id_vendeur'] ?></td>
@@ -140,7 +175,7 @@ if (isset($_SESSION['connecter_admin']) && $_SESSION['connecter_admin'] === true
 
 
 
-
+<h1 class="text-center text-danger">VITRINE COLLABORATEUR</h1>
     <div class="container text-center">
     <div class="row">
 
@@ -207,7 +242,7 @@ if (isset($_SESSION['connecter_admin']) && $_SESSION['connecter_admin'] === true
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <a name="supprimer" type="submit" href="supprimer&id=<?= $row['id_produit'] ?>"
+                                        <a name="supp" type="submit" href="supp&id=<?= $row['id_produit'] ?>"
                                            class="btn btn-outline-success m-2 w3-button w3-black">supprimer</a>
                                     </div>
                                 </div>
@@ -225,3 +260,4 @@ if (isset($_SESSION['connecter_admin']) && $_SESSION['connecter_admin'] === true
 
 <?php
 }
+require_once "footer.php";

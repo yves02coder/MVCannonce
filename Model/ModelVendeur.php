@@ -5,9 +5,10 @@ require_once "database.php";
 class ModelVendeur extends Database
 
 {
-    public $nom_vendeur;
-    public $email_vendeur;
-    public $password_vendeur;
+    private $nom_vendeur;
+    private $email_vendeur;
+    private $password_vendeur;
+    private $id_vendeur;
 
 
     public function getConnexionVendeur(){
@@ -15,7 +16,7 @@ class ModelVendeur extends Database
         $db = $this->getPDO();
 
         //Verifie si vendeur est  connecté
-        if(isset($_SESSION['email_vendeur']) /*&& $_SESSION['password_vendeur']*/ === true){
+        if(isset($_SESSION['email_vendeur']) === true){
             ?>
 
             <h1 class="text-info ml-lg-5 ">Bonjour <?= $_SESSION['email_vendeur'] ?></h1>
@@ -76,6 +77,72 @@ class ModelVendeur extends Database
             }else{
                 echo "<p class='alert-danger p-2 '>Merci de remplir tous les champs</p>";
             }
+
+
+
+    }
+
+    public function getAllVendeur()
+    {
+
+        $db=$this->getPDO();
+
+        $sql="SELECT * FROM `vendeur_produit`";
+        $stmt=$db->query($sql);
+        return $stmt;
+
+    }
+
+
+    public function getProduitByCategorie(){
+        //$categorie_recherche=$_GET['categorie_recherche'];
+        $connecter=new PDO("mysql:dbname=crud_mvc;charset=utf8", 'root', '');
+        $connecter->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+        //Requète SQL + jointure
+        $sql="SELECT * FROM produits INNER JOIN regions ON produits.id_produit_region= regions.id_regions INNER JOIN vendeur_produit ON produits.`vendeur_id_produit`=vendeur_produit.id_vendeur WHERE id_vendeur=?";
+        //Recup de id utilisateur
+        $this->id_vendeur = $_SESSION['id_vendeur'];
+        //Requète préparée
+        $request = $connecter->prepare($sql);
+        //Lié les paramètres
+        $request->bindParam(1, $this->id_vendeur);
+
+        //Execution de la requète
+        $request->execute();
+        //Retourne un objet de resultats
+
+
+        return $request->fetchAll(PDO::FETCH_ASSOC);
+
+        /* $categorie->execute();
+ return $categorie->fetchAll(PDO::FETCH_ASSOC);*/
+
+
+
+    }
+
+    public function getAllCategorie()
+    {
+        $connecter=new PDO("mysql:dbname=crud_mvc;charset=utf8", 'root', '');
+        $connecter->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+        //Requète SQL + jointure
+        $sql="SELECT DISTINCT  categorie_produit,`nom_produit`,id_produit,nom_vendeur,image_produit FROM produits  INNER JOIN regions ON produits.id_produit_region= regions.id_regions INNER JOIN vendeur_produit ON produits.`vendeur_id_produit`=vendeur_produit.id_vendeur  ";
+        //Recup de id utilisateur
+        $this->id_vendeur = $_SESSION['id_vendeur'];
+        //Requète préparée
+        $request = $connecter->prepare($sql);
+        //Lié les paramètres
+        //$request->bindParam(1, $this->id_vendeur);
+
+        //Execution de la requète
+        $request->execute();
+        //Retourne un objet de resultats
+
+
+        return $request->fetchAll(PDO::FETCH_ASSOC);
+
+        /* $categorie->execute();
+ return $categorie->fetchAll(PDO::FETCH_ASSOC);*/
 
 
 

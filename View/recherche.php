@@ -5,6 +5,7 @@ require_once "../Controller/showproduitTrouver.php";
 $row=FoundProduit();
 
 
+
   ?>
 
 <div class="container text-center">
@@ -32,7 +33,7 @@ $row=FoundProduit();
 
 
                         <button type="button" data-toggle="modal" class="btn btn-primary"  data-target="#supprimer_produit&id=<?=$row['id_produit'] ?>">
-                            Payer le produit
+                           voir le produit
                         </button>
 
 
@@ -62,7 +63,7 @@ $row=FoundProduit();
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                         <a name="acheter" type="submit" href="acheter&id=<?= $row['id_produit'] ?>"
-                                           class="btn btn-outline-success m-2 w3-button w3-black ">Payer</a>
+                                           class="btn btn-outline-success m-2 w3-button w3-black ">payer le produit</a>
                                     </div>
                                 </div>
                             </div>
@@ -77,6 +78,10 @@ $row=FoundProduit();
     </div>
 </div>
 
+
+<!--------------------------------------catreg---------------------------------------------------->
+
+<?php
 require_once "../View/footer.php";
 
 

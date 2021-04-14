@@ -12,7 +12,7 @@ class ModelUtilisateur extends Database
         $db = $this->getPDO();
 
         //Verifie si admin est deja connexté
-        if(isset($_SESSION['email_utilisateur']) && $_SESSION['password_utilisateur'] === true){
+        if(isset($_SESSION['email_utilisateur']) && $_SESSION['password_utilisateur']){
             ?>
             <h1>Bonjour <?= $_SESSION['email_utilisateur'] ?></h1>
             <?php

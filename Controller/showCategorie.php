@@ -11,3 +11,12 @@ function getProduitByCategorie()
 
 }
 
+function getProduitCategorie()
+{
+    $categorie=new Categorie();
+    $getcategorie=$categorie->getAllCategorie();
+    // require_once "../View/categorie.php";
+
+    return $getcategorie;
+
+}

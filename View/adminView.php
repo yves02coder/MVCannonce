@@ -1,7 +1,7 @@
 <?php
 require_once "../asset/template.php";
 require_once "../Controller/showAdminViewController.php";
-require_once "../Controller/showDelete.php";
+require_once "../Controller/showEspaceAdmin.php";
 $getproduit = getAdminView();
 
 ?>
